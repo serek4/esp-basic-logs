@@ -25,7 +25,7 @@ void BasicLogs::handle() {
 		File logFile;
 		bool logSaved = false;
 		if (!(filesystem.exists(LOG_FILE_NAME))) {
-			String newFile = "time, logLevel, message\n" + _logBuffer;
+			String newFile = "time, logLevel, origin, message\n" + _logBuffer;
 			logSaved = filesystem.writeFile(newFile, LOG_FILE_NAME, logFile);
 		} else {
 			logSaved = filesystem.appendFile(_logBuffer, LOG_FILE_NAME, logFile);
