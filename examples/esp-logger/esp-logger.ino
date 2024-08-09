@@ -34,7 +34,7 @@ void setup() {
 void loop() {
 	NTPclient.handle();
 	if (millis() - loopDelay >= 60000) {
-		logger.saveLog(BasicLogs::_info_, NTPclient.dateTimeString());
+		logger.saveLog(BasicLogs::_info_, "loop", NTPclient.dateTimeString());
 		loopDelay = millis();
 	}
 	logger.handle();
