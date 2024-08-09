@@ -4,7 +4,7 @@
 String BasicLogs::_pendingLogs = "";
 String BasicLogs::_logBuffer = "";
 u_long BasicLogs::_saveLogDelayTimer = 0;
-const char* BasicLogs::_logLevelStr[] = {"critical", "error", "warning", "info", "debug", "unknown"};
+const char* BasicLogs::_logLevelStr[] = {"", "critical", "error", "warning", "info", "debug", "unknown"};
 
 void BasicLogs::setup() {
 	if (!(filesystem._fsStarted)) {
@@ -12,12 +12,9 @@ void BasicLogs::setup() {
 		filesystem.setup();
 	}
 }
-void BasicLogs::saveLog(time_t time, uint8_t logLevel, String message) {
-	logLevel = constrain(logLevel, _critical_, _unknown_);
-	_pendingLogs += BasicTime::dateTimeString(time) + ", " + _logLevelStr[logLevel] + ", " + message + "\n";
-}
-void BasicLogs::saveLog(time_t time, String logLevel, String message) {
-	_pendingLogs += BasicTime::dateTimeString(time) + ", " + logLevel + ", " + message + "\n";
+void BasicLogs::saveLog(time_t time, uint8_t logLevel, String origin, String message) {
+	logLevel = constrain(logLevel, _none_, _unknown_);
+	_pendingLogs += BasicTime::dateTimeString(time) + ", " + _logLevelStr[logLevel] + ", " + origin + ", " + message + "\n";
 }
 void BasicLogs::handle() {
 	if (_pendingLogs.length() > 0) {    // add pending logs to buffer and clear pending logs

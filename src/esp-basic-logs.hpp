@@ -24,6 +24,7 @@
 class BasicLogs {
   public:
 	enum LogLevel {
+		_none_,
 		_critical_,
 		_error_,
 		_warning_,
@@ -33,10 +34,10 @@ class BasicLogs {
 	};
 	void setup();
 	static void handle();
-	static void saveLog(time_t time, uint8_t logLevel, String message);
-	static void saveLog(uint8_t logLevel, String message) { saveLog(now(), logLevel, message); };
-	static void saveLog(time_t time, String logLevel, String message);
-	static void saveLog(String logLevel, String message) { saveLog(now(), logLevel, message); };
+	static void saveLog(time_t time, uint8_t logLevel, String origin, String message);
+	static void saveLog(uint8_t logLevel, String origin, String message) { saveLog(now(), logLevel, origin, message); };
+	static void saveLog(uint8_t logLevel, String message) { saveLog(now(), logLevel, emptyString, message); };
+	static void saveLog(String origin, String message) { saveLog(now(), _none_, origin, message); };
 
   private:
 	static String _pendingLogs;
