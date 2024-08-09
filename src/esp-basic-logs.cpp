@@ -13,7 +13,7 @@ void BasicLogs::setup() {
 	}
 }
 void BasicLogs::saveLog(time_t time, uint8_t logLevel, String message) {
-	constrain(logLevel, _error_, _unknown_);
+	logLevel = constrain(logLevel, _critical_, _unknown_);
 	_pendingLogs += BasicTime::dateTimeString(time) + ", " + _logLevelStr[logLevel] + ", " + message + "\n";
 }
 void BasicLogs::saveLog(time_t time, String logLevel, String message) {
